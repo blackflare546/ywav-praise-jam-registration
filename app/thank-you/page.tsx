@@ -1,7 +1,14 @@
+import { notFound } from "next/navigation";
+
 import QRCodeCard from "@/components/qr/QRCodeCard";
 import DownloadQRButton from "@/components/qr/DownloadQRButton";
-import { Card } from "@/components/ui/card";
-import { notFound } from "next/navigation";
+
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 
 interface Props {
@@ -21,74 +28,99 @@ export default async function ThankYouPage({
 
     const supabase = await createClient();
 
-    const { data } = await supabase
+    const { data, error } = await supabase
         .from("registrants")
         .select("*")
         .eq("qr_code", qr)
         .single();
 
-    if (!data) {
+    if (error || !data) {
         notFound();
     }
 
     return (
-        <main className="min-h-screen bg-slate-50 py-16">
+        <main className="min-h-screen  py-16">
             <div className="mx-auto max-w-2xl px-6">
-                <Card className="p-8 space-y-8">
+                <Card className="shadow-xl">
+                    <CardHeader className="text-center">
+                        <CardTitle className="text-4xl text-green-600">
+                            🎉 Registration Successful!
+                        </CardTitle>
 
-                    <div className="text-center">
-                        <h1 className="text-4xl font-bold text-green-600">
-                            Registration Successful!
-                        </h1>
-
-                        <p className="text-slate-500 mt-2">
-                            Thank you for registering for our
-                            Youth Praise Jam.
+                        <p className="text-muted-foreground mt-2">
+                            Thank you for registering for our Youth Praise Jam.
                         </p>
-                    </div>
+                    </CardHeader>
 
-                    <div className="space-y-3">
+                    <CardContent className="space-y-8">
+                        {/* Registrant Details */}
 
-                        <div>
-                            <strong>Name:</strong>
-                            <br />
-                            {data.name}
+                        <div className="rounded-lg border bg-muted/40 p-5 space-y-4">
+                            <div>
+                                <p className="text-sm text-muted-foreground">
+                                    Full Name
+                                </p>
+
+                                <p className="font-semibold">
+                                    {data.name}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-sm text-muted-foreground">
+                                    Email
+                                </p>
+
+                                <p className="font-semibold">
+                                    {data.email}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-sm text-muted-foreground">
+                                    Ministries
+                                </p>
+
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {data.ministries.map(
+                                        (ministry: string) => (
+                                            <span
+                                                key={ministry}
+                                                className="rounded-full bg-primary px-3 py-1 text-sm text-primary-foreground"
+                                            >
+                                                {ministry}
+                                            </span>
+                                        )
+                                    )}
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <strong>Email:</strong>
-                            <br />
-                            {data.email}
+                        {/* QR Code */}
+
+                        <div className="flex justify-center">
+                            <QRCodeCard value={data.qr_code} />
                         </div>
 
-                        <div>
-                            <strong>Ministries:</strong>
+                        {/* Download */}
 
-                            <ul className="list-disc ml-6 mt-2">
-                                {data.ministries.map(
-                                    (ministry: string) => (
-                                        <li key={ministry}>
-                                            {ministry}
-                                        </li>
-                                    )
-                                )}
-                            </ul>
+                        <DownloadQRButton
+                            filename={data.name}
+                        />
+
+                        {/* Instructions */}
+
+                        <div className="rounded-lg border border-blue-200 bg-blue-50 p-5">
+                            <h3 className="font-semibold text-blue-700">
+                                Event Reminder
+                            </h3>
+
+                            <p className="mt-2 text-sm text-blue-600">
+                                Please save your QR Code and present it
+                                during event registration for attendance.
+                            </p>
                         </div>
-
-                    </div>
-
-                    <QRCodeCard value={data.qr_code} />
-
-                    <DownloadQRButton
-                        filename={data.name}
-                    />
-
-                    <div className="rounded-lg bg-blue-50 border border-blue-200 p-4 text-sm text-blue-700">
-                        Please save your QR Code.
-                        Present it during event registration
-                        for attendance.
-                    </div>
-
+                    </CardContent>
                 </Card>
             </div>
         </main>

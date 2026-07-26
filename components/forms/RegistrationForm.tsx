@@ -65,23 +65,27 @@ export default function RegistrationForm() {
         try {
             setLoading(true);
 
+            // Generate a unique QR code value
             const qrCode = uuid();
 
-            const { error } = await supabase.from("registrants").insert({
-                name: data.name,
-                email: data.email,
-                ministries: data.ministries,
-                qr_code: qrCode,
-            });
+            const { error } = await supabase
+                .from("registrants")
+                .insert({
+                    name: data.name,
+                    email: data.email,
+                    ministries: data.ministries,
+                    qr_code: qrCode,
+                });
 
             if (error) {
                 alert(error.message);
                 return;
             }
 
+            // Redirect to the thank you page
             router.push(`/thank-you?qr=${qrCode}`);
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
             alert("Something went wrong.");
         } finally {
             setLoading(false);
