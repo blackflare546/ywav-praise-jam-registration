@@ -82,6 +82,9 @@ export default function RegistrationForm() {
                 return;
             }
 
+            // Redirect to the thank you page
+            router.push(`/thank-you?qr=${qrCode}`);
+
             await fetch("/api/email", {
                 method: "POST",
                 headers: {
@@ -95,8 +98,6 @@ export default function RegistrationForm() {
                 }),
             });
 
-            // Redirect to the thank you page
-            router.push(`/thank-you?qr=${qrCode}`);
         } catch (error) {
             console.error(error);
             alert("Something went wrong.");
