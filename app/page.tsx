@@ -1,14 +1,23 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <div className="text-center space-y-3">
-        <h1 className="text-4xl font-bold">
+    <main className="flex min-h-screen items-center justify-center">
+      <div className="space-y-6 text-center">
+        <h1 className="text-5xl font-bold">
           Youth Praise Jam
         </h1>
 
-        <p>
-          Next.js + Supabase Connected
+        <p className="text-slate-600">
+          Register to join our ministries.
         </p>
+
+        <Button asChild>
+          <Link href="/register">
+            Register Now
+          </Link>
+        </Button>
       </div>
     </main>
   );
