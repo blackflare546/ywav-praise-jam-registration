@@ -82,6 +82,19 @@ export default function RegistrationForm() {
                 return;
             }
 
+            await fetch("/api/email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    ministries: data.ministries,
+                    qr: qrCode,
+                }),
+            });
+
             // Redirect to the thank you page
             router.push(`/thank-you?qr=${qrCode}`);
         } catch (error) {
