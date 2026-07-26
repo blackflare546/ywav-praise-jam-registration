@@ -1,6 +1,7 @@
 import DashboardCards from "@/components/admin/DashboardCards";
 import RegistrantsTable from "@/components/admin/RegistrantsTable";
 import { createClient } from "@/lib/supabase/server";
+import AdminToolbar from "@/components/admin/AdminToolbar";
 
 export default async function AdminPage() {
     const supabase = await createClient();
@@ -30,6 +31,11 @@ export default async function AdminPage() {
                 </div>
 
                 <DashboardCards registrants={registrants ?? []} />
+
+                <AdminToolbar
+                    registrants={registrants ?? []}
+                />
+
 
                 <div className="mt-8">
 
