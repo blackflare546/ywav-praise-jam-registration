@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CalendarDays, MapPin, Clock } from "lucide-react";
 
 import DashboardCards from "./DashboardCards";
-import RegistrantsTable from "./RegistrantsTable";
+import RegistrantsTable from "./table/registrants-table";
 import AdminToolbar from "./AdminToolbar";
 import { createClient } from "@/lib/supabase/client";
 
@@ -271,7 +271,7 @@ export default function AdminDashboard() {
                         <div className="p-6">
 
                             <RegistrantsTable
-                                registrants={registrants}
+                                data={registrants}
                             />
 
                         </div>
