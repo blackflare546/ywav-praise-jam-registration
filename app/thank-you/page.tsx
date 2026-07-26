@@ -39,68 +39,237 @@ export default async function ThankYouPage({
     }
 
     return (
-        <main className="min-h-screen  py-16">
-            <div className="mx-auto max-w-2xl px-6">
-                <Card className="shadow-xl">
-                    <CardHeader className="text-center">
-                        <CardTitle className="text-4xl text-green-600">
+        <main
+            className="
+    min-h-screen
+    flex
+    items-center
+    justify-center
+    bg-gradient-to-br
+    from-emerald-950
+    via-gray-900
+    to-black
+    px-5
+    py-6
+    "
+        >
+
+            <div
+                className="
+            w-full
+            max-w-xl
+            "
+            >
+
+                <Card
+                    className="
+                overflow-hidden
+                rounded-3xl
+                border-0
+                bg-white
+                shadow-2xl
+                "
+                >
+
+                    {/* Header */}
+
+                    <CardHeader
+                        className="
+    bg-gradient-to-br
+    from-emerald-50
+    to-white
+    px-6
+    py-4
+    text-center
+    "
+                    >
+
+                        <CardTitle
+                            className="
+                        text-2xl
+                        font-extrabold
+                        text-emerald-700
+                        "
+                        >
                             🎉 Registration Successful!
                         </CardTitle>
 
-                        <p className="text-muted-foreground mt-2">
-                            Thank you for registering for our Youth Praise Jam.
+
+                        <p
+                            className="
+                        mt-2
+                        text-gray-600
+                        "
+                        >
+                            Thank you for joining
+                            <br />
+                            <span className="font-semibold">
+                                Youth With a Vision Praise Jam
+                            </span>
                         </p>
+
+
                     </CardHeader>
 
-                    <CardContent className="space-y-8">
-                        {/* Registrant Details */}
 
-                        <div className="rounded-lg border bg-muted/40 p-5 space-y-4">
+
+                    <CardContent
+                        className="
+    space-y-3
+    bg-white
+    px-5
+    py-4
+    text-gray-900
+    "
+                    >
+
+
+                        {/* Details */}
+
+                        <div
+                            className="
+                        rounded-2xl
+                        border
+                        border-gray-200
+                        bg-gray-50
+                        p-4
+space-y-2
+                        "
+                        >
+
+
                             <div>
-                                <p className="text-sm text-muted-foreground">
+
+                                <p
+                                    className="
+                                text-xs
+                                font-medium
+                                uppercase
+                                text-gray-500
+                                "
+                                >
                                     Full Name
                                 </p>
 
-                                <p className="font-semibold">
+
+                                <p
+                                    className="
+                                text-lg
+                                font-bold
+                                text-gray-900
+                                "
+                                >
                                     {data.name}
                                 </p>
+
                             </div>
 
+
+
                             <div>
-                                <p className="text-sm text-muted-foreground">
+
+                                <p
+                                    className="
+                                text-xs
+                                font-medium
+                                uppercase
+                                text-gray-500
+                                "
+                                >
                                     Email
                                 </p>
 
-                                <p className="font-semibold">
+
+                                <p
+                                    className="
+                                font-semibold
+                                text-gray-800
+                                "
+                                >
                                     {data.email}
                                 </p>
+
                             </div>
 
+
+
                             <div>
-                                <p className="text-sm text-muted-foreground">
+
+                                <p
+                                    className="
+                                text-xs
+                                font-medium
+                                uppercase
+                                text-gray-500
+                                "
+                                >
                                     Ministries
                                 </p>
 
-                                <div className="flex flex-wrap gap-2 mt-2">
+
+
+                                <div
+                                    className="
+                                mt-2
+                                flex
+                                flex-wrap
+                                gap-2
+                                "
+                                >
+
                                     {data.ministries.map(
                                         (ministry: string) => (
+
                                             <span
                                                 key={ministry}
-                                                className="rounded-full bg-primary px-3 py-1 text-sm text-primary-foreground"
+                                                className="
+                                            rounded-full
+                                            bg-emerald-100
+                                            px-3
+                                            py-1
+                                            text-sm
+                                            font-semibold
+                                            text-emerald-700
+                                            "
                                             >
                                                 {ministry}
                                             </span>
+
                                         )
                                     )}
+
                                 </div>
+
                             </div>
+
+
                         </div>
 
-                        {/* QR Code */}
 
-                        <div className="flex justify-center">
-                            <QRCodeCard value={data.qr_code} />
+
+
+                        {/* QR */}
+
+                        <div
+                            className="
+    flex
+    justify-center
+    rounded-2xl
+    border
+    border-gray-200
+    bg-white
+    p-2
+    "
+                        >
+
+                            <QRCodeCard
+                                value={data.qr_code}
+                            />
+
                         </div>
+
+
+
 
                         {/* Download */}
 
@@ -108,21 +277,58 @@ export default async function ThankYouPage({
                             filename={data.name}
                         />
 
-                        {/* Instructions */}
 
-                        <div className="rounded-lg border border-blue-200 bg-blue-50 p-5">
-                            <h3 className="font-semibold text-blue-700">
-                                Event Reminder
+
+
+
+                        {/* Reminder */}
+
+                        <div
+                            className="
+                        rounded-2xl
+                        border
+                        border-emerald-200
+                        bg-emerald-50
+                        p-4
+                        "
+                        >
+
+                            <h3
+                                className="
+                            font-bold
+                            text-emerald-700
+                            "
+                            >
+                                📌 Event Reminder
                             </h3>
 
-                            <p className="mt-2 text-sm text-blue-600">
-                                Please save your QR Code and present it
-                                during event registration for attendance.
+
+                            <p
+                                className="
+                            mt-1
+                            text-sm
+                            text-emerald-800
+                            "
+                            >
+                                Save your QR Code and present it
+                                during registration on the event day.
                             </p>
+
+
                         </div>
+
+
+
                     </CardContent>
+
+
                 </Card>
+
+
+
             </div>
+
+
         </main>
     );
 }
