@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 		await transporter.sendMail({
 			from: `"Youth Praise Jam" <${process.env.GMAIL_USER}>`,
 			to: body.email,
-			subject: "Youth Praise Jam Registration Confirmation",
+			subject: "Youth With A Vision Praise Jam Registration Confirmation",
 
 			html: `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px;">
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
       <p>
         Thank you for registering for our
-        <strong>Youth Praise Jam</strong>.
+        <strong>Youth With A Vision Praise Jam</strong>.
       </p>
 
       <h3>Your Ministries</h3>
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       <hr />
 
       <p style="font-size:12px;color:#666;">
-        Youth Praise Jam Registration System
+        Youth With A Vision Praise Jam Registration System
       </p>
     </div>
   `,
