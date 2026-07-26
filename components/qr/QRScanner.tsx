@@ -1,222 +1,347 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
-type ScanStatus =
+type ResultStatus =
     | "idle"
-    | "loading"
     | "success"
     | "already"
     | "not_found"
     | "error";
 
+
 export default function QRScanner() {
-    const [status, setStatus] = useState<ScanStatus>("idle");
-    const [message, setMessage] = useState("📷 Ready to scan a QR Code");
-    const [lastScan, setLastScan] = useState("");
 
-    const audioRef = useRef<HTMLAudioElement>(null);
+    const [status, setStatus] =
+        useState<ResultStatus>("idle");
 
-    async function processScan(qr: string) {
-        if (!qr) return;
+    const [message, setMessage] =
+        useState(
+            "📷 Ready to scan"
+        );
 
-        // Prevent duplicate scans while processing
-        if (status === "loading") return;
 
-        // Ignore the same QR for a few seconds
-        if (qr === lastScan) return;
+    const [loading, setLoading] =
+        useState(false);
 
-        setStatus("loading");
-        setLastScan(qr);
 
-        console.log("QR:", qr);
+    async function processScan(
+        qr: string
+    ) {
+
+        if (loading) return;
+
+
+        setLoading(true);
+
 
         try {
-            const response = await fetch("/api/attendance", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    qr,
-                }),
-            });
 
-            const data = await response.json();
+            const response =
+                await fetch(
+                    "/api/attendance",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+                        },
+                        body: JSON.stringify({
+                            qr,
+                        }),
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
 
             setMessage(data.message);
 
+
+
             switch (data.status) {
+
                 case "success":
+
                     setStatus("success");
 
-                    toast.success(data.message);
-
-                    audioRef.current?.play().catch(() => { });
-
                     break;
+
 
                 case "already_checked_in":
+
                     setStatus("already");
 
-                    toast.warning(data.message);
-
                     break;
+
 
                 case "not_found":
-                    setStatus("not_found");
 
-                    toast.error(data.message);
+                    setStatus("not_found");
 
                     break;
 
+
                 default:
+
                     setStatus("error");
 
-                    toast.error(data.message ?? "Unknown error.");
             }
-        } catch (error) {
+
+
+        }
+        catch (error) {
+
             console.error(error);
 
             setStatus("error");
 
-            setMessage("Unable to connect to server.");
+            setMessage(
+                "Server error."
+            );
 
-            toast.error("Unable to connect to server.");
-        } finally {
-            // Allow rescanning after 2 seconds
-            setTimeout(() => {
-                setLastScan("");
-                setStatus("idle");
-                setMessage("📷 Ready to scan a QR Code");
-            }, 2000);
         }
+        finally {
+
+            setLoading(false);
+
+        }
+
     }
 
-    function getStatusClass() {
-        switch (status) {
-            case "loading":
-                return "border-yellow-300 bg-yellow-100 text-yellow-800";
 
-            case "success":
-                return "border-green-300 bg-green-100 text-green-800";
 
-            case "already":
-                return "border-blue-300 bg-blue-100 text-blue-800";
+    function resetScanner() {
 
-            case "not_found":
-                return "border-red-300 bg-red-100 text-red-800";
+        setStatus("idle");
 
-            case "error":
-                return "border-red-300 bg-red-100 text-red-800";
+        setMessage(
+            "📷 Ready to scan"
+        );
 
-            default:
-                return "border-emerald-200 bg-emerald-50 text-emerald-700";
-        }
     }
+
+
 
     return (
-        <>
-            {/* Optional success sound */}
-            <audio
-                ref={audioRef}
-                src="/success.mp3"
-                preload="auto"
-            />
 
-            <div className="mx-auto max-w-2xl py-10">
+        <main
+            className="
+      min-h-screen
+      bg-gradient-to-br
+      from-emerald-50
+      via-white
+      to-green-100
+      p-6
+      "
+        >
 
-                <Card className="overflow-hidden rounded-3xl border-0 shadow-2xl">
 
-                    {/* Header */}
+            <Card
+                className="
+        mx-auto
+        max-w-xl
+        overflow-hidden
+        rounded-3xl
+        shadow-xl
+        "
+            >
 
-                    <div className="bg-gradient-to-r from-emerald-700 via-green-600 to-lime-500 p-8 text-white">
 
-                        <h1 className="text-3xl font-bold">
-                            Youth Praise Jam
-                        </h1>
+                <div
+                    className="
+          bg-gradient-to-r
+          from-emerald-700
+          to-green-500
+          p-8
+          text-white
+          "
+                >
 
-                        <p className="mt-2 text-green-100">
-                            Attendance QR Scanner
-                        </p>
+                    <h1
+                        className="
+            text-3xl
+            font-bold
+            "
+                    >
+                        Youth Praise Jam
+                    </h1>
 
-                    </div>
 
-                    <div className="space-y-6 p-6">
+                    <p>
+                        Attendance Scanner
+                    </p>
 
-                        {/* Camera */}
+                </div>
 
-                        <div className="overflow-hidden rounded-2xl border-4 border-emerald-500 bg-black shadow-lg">
 
-                            <Scanner
-                                constraints={{
-                                    facingMode: "environment",
-                                }}
-                                allowMultiple={false}
-                                scanDelay={500}
-                                onScan={(results) => {
-                                    if (!results.length) return;
 
-                                    processScan(results[0].rawValue);
-                                }}
-                                onError={(error) => {
-                                    console.error(error);
+                <div
+                    className="
+          p-6
+          "
+                >
 
-                                    setStatus("error");
 
-                                    setMessage("Unable to access camera.");
+                    {
+                        status === "idle" ? (
 
-                                    toast.error("Unable to access camera.");
-                                }}
-                                styles={{
-                                    container: {
-                                        width: "100%",
-                                    },
-                                    video: {
-                                        width: "100%",
-                                        height: "420px",
-                                        objectFit: "cover",
-                                    },
-                                }}
-                            />
 
-                        </div>
+                            <div
+                                className="
+              overflow-hidden
+              rounded-2xl
+              border-4
+              border-emerald-500
+              "
+                            >
 
-                        {/* Status */}
+                                <Scanner
 
-                        <div
-                            className={`rounded-2xl border p-5 text-center text-lg font-semibold transition-all ${getStatusClass()}`}
-                        >
-                            {status === "loading"
-                                ? "⏳ Checking attendee..."
-                                : message}
-                        </div>
+                                    constraints={{
+                                        facingMode:
+                                            "environment",
+                                    }}
 
-                        {/* Instructions */}
 
-                        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+                                    scanDelay={500}
 
-                            <h2 className="mb-2 font-semibold text-emerald-700">
-                                Instructions
-                            </h2>
 
-                            <ul className="list-disc space-y-2 pl-5 text-sm text-emerald-700">
-                                <li>Allow camera access if prompted.</li>
-                                <li>Point the camera at the attendee's QR Code.</li>
-                                <li>Wait for the confirmation message.</li>
-                                <li>Each participant can only check in once.</li>
-                            </ul>
+                                    onScan={(result) => {
 
-                        </div>
+                                        if (!result.length)
+                                            return;
 
-                    </div>
 
-                </Card>
+                                        processScan(
+                                            result[0].rawValue
+                                        );
 
-            </div>
-        </>
+                                    }}
+
+
+                                    onError={(error) => {
+
+                                        console.error(error);
+
+                                        setStatus(
+                                            "error"
+                                        );
+
+                                        setMessage(
+                                            "Camera error"
+                                        );
+
+                                    }}
+
+
+                                    styles={{
+                                        video: {
+                                            height: "420px",
+                                            objectFit: "cover",
+                                        }
+                                    }}
+
+                                />
+
+                            </div>
+
+
+                        ) : (
+
+
+                            <div
+                                className={`
+              rounded-3xl
+              p-10
+              text-center
+              ${status === "success"
+                                        ?
+                                        "bg-green-100 text-green-800"
+                                        :
+                                        status === "already"
+                                            ?
+                                            "bg-blue-100 text-blue-800"
+                                            :
+                                            "bg-red-100 text-red-800"
+                                    }
+              `}
+                            >
+
+
+                                <div
+                                    className="
+                text-6xl
+                "
+                                >
+
+                                    {
+                                        status === "success"
+                                            ?
+                                            "✅"
+                                            :
+                                            status === "already"
+                                                ?
+                                                "⚠️"
+                                                :
+                                                "❌"
+                                    }
+
+                                </div>
+
+
+
+                                <h2
+                                    className="
+                mt-5
+                text-2xl
+                font-bold
+                "
+                                >
+                                    {message}
+                                </h2>
+
+
+
+                                <Button
+
+                                    onClick={
+                                        resetScanner
+                                    }
+
+                                    className="
+                mt-8
+                w-full
+                "
+                                >
+
+                                    Scan Next Attendee
+
+                                </Button>
+
+
+
+                            </div>
+
+
+                        )}
+
+
+
+                </div>
+
+
+            </Card>
+
+
+        </main>
+
     );
+
 }
