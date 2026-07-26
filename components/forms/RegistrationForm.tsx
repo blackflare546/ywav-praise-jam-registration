@@ -107,106 +107,319 @@ export default function RegistrationForm() {
     };
 
     return (
-        <Card className="shadow-xl">
-            <CardHeader>
-                <CardTitle className="text-3xl">
-                    Youth Praise Jam
+        <Card
+            className="
+    overflow-hidden
+    rounded-3xl
+    border
+    border-gray-200
+    bg-white
+    shadow-xl
+    "
+        >
+
+            {/* Header */}
+
+            <CardHeader
+                className="
+            bg-gradient-to-r
+            from-emerald-700
+            to-green-500
+            p-8
+            text-white
+            "
+            >
+
+                <CardTitle
+                    className="
+                text-3xl
+                font-extrabold
+                md:text-4xl
+                "
+                >
+                    Youth With a Vision
+                    <br />
+                    Praise Jam
                 </CardTitle>
 
-                <p className="text-muted-foreground">
-                    Register and choose the ministries you'd like to serve in.
+
+                <p
+                    className="
+                mt-3
+                text-emerald-50
+                "
+                >
+                    Register your details and choose
+                    the ministry where you want to serve.
                 </p>
+
+
             </CardHeader>
 
-            <CardContent>
+
+
+            <CardContent
+                className="
+    bg-white
+    p-6
+    text-gray-900
+    md:p-8
+    "
+            >
+
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-6"
+                    className="
+                space-y-7
+                "
                 >
+
+
                     {/* Name */}
 
                     <div className="space-y-2">
-                        <Label htmlFor="name">
+
+
+                        <Label
+                            className="
+                        text-base
+                        font-semibold
+                        text-gray-900
+                        "
+                        >
                             Full Name
                         </Label>
 
+
                         <Input
                             id="name"
-                            placeholder="Juan Dela Cruz"
+                            placeholder=""
+                            className="
+                        h-12
+                        rounded-xl
+                        text-base
+                        "
                             {...register("name")}
                         />
 
+
                         {errors.name && (
-                            <p className="text-sm text-red-500">
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
                                 {errors.name.message}
                             </p>
                         )}
+
                     </div>
+
+
 
                     {/* Email */}
 
                     <div className="space-y-2">
-                        <Label htmlFor="email">
+
+
+                        <Label
+                            className="
+                        text-base
+                        font-semibold
+                        text-gray-900
+                        "
+                        >
                             Email Address
                         </Label>
+
 
                         <Input
                             id="email"
                             type="email"
-                            placeholder="juan@email.com"
+                            className="
+                        h-12
+                        rounded-xl
+                        text-base
+                        "
                             {...register("email")}
                         />
 
+
                         {errors.email && (
-                            <p className="text-sm text-red-500">
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
                                 {errors.email.message}
                             </p>
                         )}
+
+
                     </div>
+
+
+
 
                     {/* Ministries */}
 
                     <div className="space-y-3">
-                        <Label>
-                            Ministries Interested
-                        </Label>
 
-                        <div className="grid grid-cols-2 gap-3">
+
+                        <div>
+
+                            <Label
+                                className="
+                            text-base
+                            font-semibold
+                            text-gray-900
+                            "
+                            >
+                                Ministries Interested
+                            </Label>
+
+
+                            <p
+                                className="
+                            mt-1
+                            text-sm
+                            text-gray-500
+                            "
+                            >
+                                Select one or more areas where
+                                you would like to participate.
+                            </p>
+
+
+                        </div>
+
+
+
+                        <div
+                            className="
+                        grid
+                        grid-cols-1
+                        gap-3
+                        sm:grid-cols-2
+                        "
+                        >
+
                             {MINISTRIES.map((ministry) => (
-                                <div
+
+                                <label
                                     key={ministry}
-                                    className="flex items-center space-x-2 rounded-lg border p-3"
+                                    className={`
+                                flex
+                                cursor-pointer
+                                items-center
+                                gap-3
+                                rounded-2xl
+                                border
+                                p-4
+                                transition
+                                hover:border-emerald-500
+                                hover:bg-emerald-50
+                                ${selectedMinistries.includes(ministry)
+                                            ?
+                                            "border-emerald-600 bg-emerald-50"
+                                            :
+                                            "border-gray-200"
+                                        }
+                                `}
                                 >
+
+
                                     <Checkbox
-                                        checked={selectedMinistries.includes(ministry)}
+                                        checked={
+                                            selectedMinistries.includes(
+                                                ministry
+                                            )
+                                        }
                                         onCheckedChange={() =>
-                                            toggleMinistry(ministry)
+                                            toggleMinistry(
+                                                ministry
+                                            )
                                         }
                                     />
 
-                                    <Label className="cursor-pointer">
+
+                                    <span
+                                        className="
+                                    font-medium
+                                    text-gray-900
+                                    "
+                                    >
                                         {ministry}
-                                    </Label>
-                                </div>
+                                    </span>
+
+
+                                </label>
+
+
                             ))}
+
                         </div>
 
+
+
                         {errors.ministries && (
-                            <p className="text-sm text-red-500">
+
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
                                 {errors.ministries.message}
                             </p>
+
                         )}
+
+
                     </div>
+
+
+
+
+                    {/* Button */}
 
                     <Button
                         type="submit"
-                        className="w-full"
                         disabled={loading}
+                        className="
+                    h-14
+                    w-full
+                    rounded-xl
+                    bg-emerald-600
+                    text-lg
+                    font-bold
+                    text-white
+                    shadow-lg
+                    transition
+                    hover:bg-emerald-700
+                    "
                     >
-                        {loading ? "Registering..." : "Register"}
+
+                        {
+                            loading
+                                ?
+                                "Registering..."
+                                :
+                                "Register Now"
+                        }
+
                     </Button>
+
+
+
                 </form>
+
+
             </CardContent>
+
+
         </Card>
     );
 }
