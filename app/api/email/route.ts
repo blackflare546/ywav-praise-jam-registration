@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 		const qrBuffer = await generateQRCodeBuffer(body.qr);
 
 		await transporter.sendMail({
-			from: `"Youth Praise Jam" <${process.env.GMAIL_USER}>`,
+			from: `"JIA DIPOLOG" <${process.env.GMAIL_USER}>`,
 			to: body.email,
 			subject: "Youth With A Vision Praise Jam Registration Confirmation",
 

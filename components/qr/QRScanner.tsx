@@ -192,7 +192,7 @@ export default function QRScanner() {
                         font-bold
                         "
                     >
-                        Youth Praise Jam
+                        Youth With A Vision Praise Jam
                     </h1>
 
 
