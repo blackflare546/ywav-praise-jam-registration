@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react"; // UPDATED
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 type ResultStatus =
     | "idle"
@@ -26,6 +25,29 @@ export default function QRScanner() {
 
     const [loading, setLoading] =
         useState(false);
+
+
+
+    // NEW: Auto return to scanner after 3 seconds
+    useEffect(() => {
+
+        if (status === "idle") return;
+
+
+        const timer = setTimeout(() => {
+
+            resetScanner();
+
+        }, 3000);
+
+
+        return () => {
+            clearTimeout(timer);
+        };
+
+
+    }, [status]);
+
 
 
     async function processScan(
@@ -133,42 +155,42 @@ export default function QRScanner() {
 
         <main
             className="
-      min-h-screen
-      bg-gradient-to-br
-      from-emerald-50
-      via-white
-      to-green-100
-      p-6
-      "
+            min-h-screen
+            bg-gradient-to-br
+            from-emerald-50
+            via-white
+            to-green-100
+            p-6
+            "
         >
 
 
             <Card
                 className="
-        mx-auto
-        max-w-xl
-        overflow-hidden
-        rounded-3xl
-        shadow-xl
-        "
+                mx-auto
+                max-w-xl
+                overflow-hidden
+                rounded-3xl
+                shadow-xl
+                "
             >
 
 
                 <div
                     className="
-          bg-gradient-to-r
-          from-emerald-700
-          to-green-500
-          p-8
-          text-white
-          "
+                    bg-gradient-to-r
+                    from-emerald-700
+                    to-green-500
+                    p-8
+                    text-white
+                    "
                 >
 
                     <h1
                         className="
-            text-3xl
-            font-bold
-            "
+                        text-3xl
+                        font-bold
+                        "
                     >
                         Youth Praise Jam
                     </h1>
@@ -182,11 +204,7 @@ export default function QRScanner() {
 
 
 
-                <div
-                    className="
-          p-6
-          "
-                >
+                <div className="p-6">
 
 
                     {
@@ -195,11 +213,11 @@ export default function QRScanner() {
 
                             <div
                                 className="
-              overflow-hidden
-              rounded-2xl
-              border-4
-              border-emerald-500
-              "
+                                overflow-hidden
+                                rounded-2xl
+                                border-4
+                                border-emerald-500
+                                "
                             >
 
                                 <Scanner
@@ -208,7 +226,6 @@ export default function QRScanner() {
                                         facingMode:
                                             "environment",
                                     }}
-
 
                                     scanDelay={500}
 
@@ -258,10 +275,10 @@ export default function QRScanner() {
 
                             <div
                                 className={`
-              rounded-3xl
-              p-10
-              text-center
-              ${status === "success"
+                                rounded-3xl
+                                p-10
+                                text-center
+                                ${status === "success"
                                         ?
                                         "bg-green-100 text-green-800"
                                         :
@@ -271,14 +288,12 @@ export default function QRScanner() {
                                             :
                                             "bg-red-100 text-red-800"
                                     }
-              `}
+                                `}
                             >
 
 
                                 <div
-                                    className="
-                text-6xl
-                "
+                                    className="text-6xl"
                                 >
 
                                     {
@@ -299,32 +314,18 @@ export default function QRScanner() {
 
                                 <h2
                                     className="
-                mt-5
-                text-2xl
-                font-bold
-                "
+                                    mt-5
+                                    text-2xl
+                                    font-bold
+                                    "
                                 >
                                     {message}
                                 </h2>
 
 
-
-                                <Button
-
-                                    onClick={
-                                        resetScanner
-                                    }
-
-                                    className="
-                mt-8
-                w-full
-                "
-                                >
-
-                                    Scan Next Attendee
-
-                                </Button>
-
+                                <p className="mt-3 text-sm opacity-70">
+                                    Returning to scanner...
+                                </p>
 
 
                             </div>
