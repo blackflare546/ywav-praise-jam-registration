@@ -94,6 +94,16 @@ export default function RegistrantsTable({
 
             </div>
 
+            <p className="
+mb-4
+text-sm
+text-gray-500
+">
+
+                Showing {filtered.length} of {registrants.length} registrants
+
+            </p>
+
             <div className="overflow-x-auto">
 
                 <table className="w-full">
@@ -128,77 +138,134 @@ export default function RegistrantsTable({
 
                     <tbody>
 
-                        {filtered.map((r) => (
+                        {filtered.length === 0 ? (
 
-                            <tr
-                                key={r.id}
-                                className="border-b"
-                            >
+                            <tr>
 
-                                <td className="py-4 font-medium">
-                                    {r.name}
-                                </td>
+                                <td
+                                    colSpan={5}
+                                    className="
+py-12
+text-center
+text-gray-500
+"
+                                >
 
-                                <td>
-                                    {r.email}
-                                </td>
+                                    <div>
 
-                                <td>
+                                        <div className="text-4xl">
+                                            🔍
+                                        </div>
 
-                                    <div className="flex flex-wrap gap-2">
 
-                                        {r.ministries.map(
-                                            (m: string) => (
+                                        <p className="mt-3">
+                                            No registrants found
+                                        </p>
 
-                                                <span
-                                                    key={m}
-                                                    className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700"
-                                                >
-                                                    {m}
-                                                </span>
 
-                                            )
-                                        )}
+                                        <p className="text-sm">
+                                            Try changing your search or filter
+                                        </p>
+
 
                                     </div>
 
-                                </td>
-
-                                <td>
-
-                                    {r.is_checked_in ? (
-
-                                        <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-
-                                            Checked In
-
-                                        </span>
-
-                                    ) : (
-
-                                        <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
-
-                                            Pending
-
-                                        </span>
-
-                                    )}
-
-                                </td>
-
-                                <td>
-
-                                    {r.checked_in_at
-                                        ? new Date(
-                                            r.checked_in_at
-                                        ).toLocaleString()
-                                        : "-"}
 
                                 </td>
 
                             </tr>
 
-                        ))}
+
+                        ) : (
+
+                            filtered.map((r) => (
+
+                                <tr
+                                    key={r.id}
+                                    className="border-b"
+                                >
+
+                                    <td className="py-4 font-medium">
+                                        {r.name}
+                                    </td>
+
+
+                                    <td>
+                                        {r.email}
+                                    </td>
+
+
+                                    <td>
+
+                                        {r.ministries.join(", ")}
+
+                                    </td>
+
+
+                                    <td>
+
+
+                                        {r.is_checked_in ? (
+
+                                            <span
+                                                className="
+rounded-full
+bg-green-100
+px-3
+py-1
+text-xs
+font-medium
+text-green-700
+"
+                                            >
+                                                ✅ Checked In
+                                            </span>
+
+
+                                        ) : (
+
+
+                                            <span
+                                                className="
+rounded-full
+bg-orange-100
+px-3
+py-1
+text-xs
+font-medium
+text-orange-700
+"
+                                            >
+                                                ⏳ Pending
+                                            </span>
+
+
+                                        )}
+
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {r.checked_in_at
+                                            ?
+                                            new Date(
+                                                r.checked_in_at
+                                            ).toLocaleString()
+                                            :
+                                            "-"
+                                        }
+
+                                    </td>
+
+
+                                </tr>
+
+
+                            ))
+
+                        )}
 
                     </tbody>
 
