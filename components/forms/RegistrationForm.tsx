@@ -72,8 +72,19 @@ export default function RegistrationForm() {
                 .from("registrants")
                 .insert({
                     name: data.name,
+
                     email: data.email,
+
+                    cell_number: data.cell_number,
+
+                    birthday: data.birthday,
+
+                    age: data.age,
+
+                    address: data.address,
+
                     ministries: data.ministries,
+
                     qr_code: qrCode,
                 });
 
@@ -261,7 +272,146 @@ export default function RegistrationForm() {
                     </div>
 
 
+                    {/* Cell Number */}
 
+                    <div className="space-y-2">
+
+
+                        <Label
+                            className="
+                        text-base
+                        font-semibold
+                        text-gray-900
+                        "
+                        >
+                            Cell Number
+                        </Label>
+
+
+                        <Input
+                            type="tel"
+                            placeholder="09XXXXXXXXX"
+                            {...register("cell_number")}
+                        />
+
+                        {errors.cell_number && (
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
+                                {errors.cell_number.message}
+                            </p>
+                        )}
+
+                    </div>
+
+                    {/* Birthday */}
+
+                    <div className="space-y-2">
+
+
+                        <Label
+                            className="
+                        text-base
+                        font-semibold
+                        text-gray-900
+                        "
+                        >
+                            Birthday
+                        </Label>
+
+
+                        <Input
+                            type="date"
+                            {...register("birthday")}
+                        />
+
+                        {errors.birthday && (
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
+                                {errors.birthday.message}
+                            </p>
+                        )}
+
+                    </div>
+
+                    {/* Age */}
+
+                    <div className="space-y-2">
+
+
+                        <Label
+                            className="
+                        text-base
+                        font-semibold
+                        text-gray-900
+                        "
+                        >
+                            Age
+                        </Label>
+
+
+                        <Input
+                            type="number"
+                            min={10}
+                            max={100}
+                            {...register("age", {
+                                valueAsNumber: true,
+                            })}
+                        />
+
+                        {errors.age && (
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
+                                {errors.age.message}
+                            </p>
+                        )}
+
+                    </div>
+
+                    {/* Address */}
+
+                    <div className="space-y-2">
+
+
+                        <Label
+                            className="
+                        text-base
+                        font-semibold
+                        text-gray-900
+                        "
+                        >
+                            Address
+                        </Label>
+
+
+                        <Input
+                            placeholder="Barangay, City"
+                            {...register("address")}
+                        />
+
+                        {errors.address && (
+                            <p
+                                className="
+                            text-sm
+                            text-red-500
+                            "
+                            >
+                                {errors.address.message}
+                            </p>
+                        )}
+
+                    </div>
 
                     {/* Ministries */}
 
@@ -289,7 +439,7 @@ export default function RegistrationForm() {
                             "
                             >
                                 Select one or more areas where
-                                you would like to participate.
+                                you would like to volunteeer.
                             </p>
 
 
