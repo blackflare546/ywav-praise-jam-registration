@@ -102,16 +102,19 @@ export default function DatePicker({
             {open && (
                 <div
                     className="
-                        absolute
-                        left-0
-                        z-50
-                        mt-2
-                        rounded-2xl
-                        border
-                        bg-white
-                        p-4
-                        shadow-2xl
-                    "
+    absolute
+    left-1/2
+    z-50
+    mt-2
+    w-[280px]
+    -translate-x-1/2
+    rounded-xl
+    border
+    border-gray-200
+    bg-white
+    p-2
+    shadow-xl
+    "
                 >
                     <DayPicker
                         mode="single"
@@ -120,11 +123,41 @@ export default function DatePicker({
                             onChange(date);
                             setOpen(false);
                         }}
-                        captionLayout="dropdown-buttons"
+                        captionLayout="dropdown"
                         fromYear={1950}
-                        toYear={
-                            new Date().getFullYear()
-                        }
+                        toYear={new Date().getFullYear()}
+                        className="text-xs"
+                        styles={{
+                            caption: {
+                                display: "flex",
+                                justifyContent: "center",
+                                marginBottom: "0.25rem",
+                            },
+                            caption_dropdowns: {
+                                gap: "0.25rem",
+                            },
+                            dropdown: {
+                                fontSize: "0.75rem",
+                                padding: "2px 4px",
+                            },
+                            table: {
+                                width: "100%",
+                            },
+                            head_cell: {
+                                fontSize: "0.65rem",
+                                padding: "2px",
+                                fontWeight: 600,
+                            },
+                            cell: {
+                                padding: "1px",
+                            },
+                            day: {
+                                width: "28px",
+                                height: "28px",
+                                fontSize: "0.75rem",
+                                margin: 0,
+                            },
+                        }}
                     />
                 </div>
             )}
