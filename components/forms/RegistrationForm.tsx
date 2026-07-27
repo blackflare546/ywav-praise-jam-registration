@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuid } from "uuid";
 
+import DatePicker from "@/components/ui/date-picker";
 
 import {
     registrationSchema,
@@ -29,6 +30,7 @@ export default function RegistrationForm() {
     const [loading, setLoading] = useState(false);
 
     const {
+        control,
         register,
         handleSubmit,
         watch,
@@ -310,35 +312,42 @@ export default function RegistrationForm() {
                     {/* Birthday */}
 
                     <div className="space-y-2">
-
-
                         <Label
                             className="
-                        text-base
-                        font-semibold
-                        text-gray-900
-                        "
+        text-base
+        font-semibold
+        text-gray-900
+        "
                         >
                             Birthday
                         </Label>
 
-
-                        <Input
-                            type="date"
-                            {...register("birthday")}
+                        <Controller
+                            control={control}
+                            name="birthday"
+                            render={({ field }) => (
+                                <DatePicker
+                                    value={
+                                        field.value
+                                            ? new Date(field.value)
+                                            : undefined
+                                    }
+                                    onChange={(date) => {
+                                        field.onChange(
+                                            date
+                                                ? date.toISOString()
+                                                : ""
+                                        );
+                                    }}
+                                />
+                            )}
                         />
 
                         {errors.birthday && (
-                            <p
-                                className="
-                            text-sm
-                            text-red-500
-                            "
-                            >
+                            <p className="text-sm text-red-500">
                                 {errors.birthday.message}
                             </p>
                         )}
-
                     </div>
 
                     {/* Age */}
