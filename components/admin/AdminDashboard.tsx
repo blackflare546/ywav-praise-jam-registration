@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { CalendarDays, MapPin, Clock } from "lucide-react";
 
 import DashboardCards from "./DashboardCards";
-import RegistrantsTable from "./table/registrants-table";
 import AdminToolbar from "./AdminToolbar";
 import { createClient } from "@/lib/supabase/client";
+import RegistrantsTable from "./RegistrantsTable";
 
 export default function AdminDashboard() {
     const [registrants, setRegistrants] = useState<any[]>([]);
@@ -271,9 +271,8 @@ export default function AdminDashboard() {
                         <div className="p-6">
 
                             <RegistrantsTable
-                                data={registrants}
+                                registrants={registrants}
                             />
-
                         </div>
 
                     </div>
