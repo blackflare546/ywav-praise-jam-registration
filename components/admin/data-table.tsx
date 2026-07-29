@@ -52,6 +52,12 @@ export function DataTable<TData>({
 
         columns: columns as ColumnDef<TData>[],
 
+        initialState: {
+            pagination: {
+                pageSize: 10,
+            },
+        },
+
         state: {
             sorting,
             columnFilters,

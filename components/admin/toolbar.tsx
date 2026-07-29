@@ -20,7 +20,7 @@ interface Props<TData> {
 
 const ministries = [
     "Singer",
-    "Instruments",
+    "Instrument",
     "Media",
     "Dance",
     "Usher",
@@ -79,6 +79,7 @@ export function DataTableToolbar<TData>({
             </div>
 
             <Select
+
                 value={
                     (table
                         .getColumn("ministries")
@@ -93,13 +94,17 @@ export function DataTableToolbar<TData>({
                                 : value
                         )
                 }
+
             >
-                <SelectTrigger className="w-full md:w-56">
+                <SelectTrigger className="w-full md:w-56 bg-white border-gray-300 text-gray-900">
                     <SelectValue placeholder="All Ministries" />
                 </SelectTrigger>
 
-                <SelectContent>
-                    <SelectItem value="all">
+                <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                    <SelectItem
+                        value="all"
+                        className="text-gray-900 hover:bg-gray-100 focus:bg-blue-100"
+                    >
                         All Ministries
                     </SelectItem>
 
@@ -107,6 +112,7 @@ export function DataTableToolbar<TData>({
                         <SelectItem
                             key={m}
                             value={m}
+                            className="text-gray-900 hover:bg-gray-100 focus:bg-blue-100"
                         >
                             {m}
                         </SelectItem>
