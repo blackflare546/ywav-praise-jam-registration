@@ -144,13 +144,17 @@ export function DataTable<TData>({
                                                 header
                                             ) => (
                                                 <TableHead
+
                                                     key={
                                                         header.id
                                                     }
                                                     className="
-                                                    font-semibold
-                                                    text-gray-700
-                                                    "
+    h-14
+    px-6
+    text-sm
+    font-semibold
+    text-gray-700
+    "
                                                 >
                                                     {header.isPlaceholder
                                                         ? null
@@ -186,8 +190,10 @@ export function DataTable<TData>({
                                                 row.id
                                             }
                                             className="
-                                            hover:bg-emerald-50
-                                            "
+    border-b
+    transition-colors
+    hover:bg-emerald-50/70
+    "
                                         >
                                             {row
                                                 .getVisibleCells()
@@ -200,9 +206,12 @@ export function DataTable<TData>({
                                                                 cell.id
                                                             }
                                                             className="
-                                                            py-4
-                                                            text-gray-800
-                                                            "
+    px-6
+    py-5
+    align-middle
+    text-sm
+    text-gray-800
+    "
                                                         >
                                                             {flexRender(
                                                                 cell
