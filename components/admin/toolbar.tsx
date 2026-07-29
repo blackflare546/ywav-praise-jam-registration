@@ -79,7 +79,6 @@ export function DataTableToolbar<TData>({
             </div>
 
             <Select
-
                 value={
                     (table
                         .getColumn("ministries")
@@ -94,16 +93,52 @@ export function DataTableToolbar<TData>({
                                 : value
                         )
                 }
-
             >
-                <SelectTrigger className="w-full md:w-56 bg-white border-gray-300 text-gray-900">
+                <SelectTrigger
+                    className="
+        h-11
+        w-full
+        md:w-60
+        rounded-xl
+        border
+        border-gray-200
+        bg-white
+        px-4
+        text-sm
+        font-medium
+        text-gray-700
+        shadow-sm
+        transition-all
+        hover:border-emerald-400
+        hover:bg-emerald-50
+        focus:border-emerald-500
+        focus:ring-2
+        focus:ring-emerald-200
+        "
+                >
                     <SelectValue placeholder="All Ministries" />
                 </SelectTrigger>
 
-                <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                <SelectContent
+                    className="
+        rounded-xl
+        border
+        border-gray-200
+        bg-white
+        p-2
+        shadow-xl
+        "
+                >
                     <SelectItem
                         value="all"
-                        className="text-gray-900 hover:bg-gray-100 focus:bg-blue-100"
+                        className="
+            rounded-lg
+            px-3
+            py-2
+            text-gray-700
+            focus:bg-emerald-100
+            focus:text-emerald-700
+            "
                     >
                         All Ministries
                     </SelectItem>
@@ -112,7 +147,14 @@ export function DataTableToolbar<TData>({
                         <SelectItem
                             key={m}
                             value={m}
-                            className="text-gray-900 hover:bg-gray-100 focus:bg-blue-100"
+                            className="
+                rounded-lg
+                px-3
+                py-2
+                text-gray-700
+                focus:bg-emerald-100
+                focus:text-emerald-700
+                "
                         >
                             {m}
                         </SelectItem>
