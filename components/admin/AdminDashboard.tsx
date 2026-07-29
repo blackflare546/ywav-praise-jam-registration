@@ -185,7 +185,7 @@ export default function AdminDashboard() {
                 "
                             >
                                 <MapPin size={16} />
-                                Galas, Dipolog
+                                At the Back of Julies Bakeshop, Brgy. Galas Dipolog City
                             </div>
 
                         </div>
