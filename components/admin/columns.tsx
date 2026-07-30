@@ -9,6 +9,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import RegistrantActions from "./actions";
 
 export interface Registrant {
     id: string;
@@ -234,5 +235,25 @@ export const columns: ColumnDef<Registrant>[] = [
                     row.original.checked_in_at
                 ).toLocaleString()
                 : "-",
+    },
+
+    {
+        id: "actions",
+
+        header: () => (
+            <div className="text-center font-semibold text-gray-800">
+                Actions
+            </div>
+        ),
+
+        enableSorting: false,
+
+        enableHiding: false,
+
+        cell: ({ row }) => (
+            <div className="flex justify-center">
+                <RegistrantActions registrant={row.original} />
+            </div>
+        ),
     },
 ];
