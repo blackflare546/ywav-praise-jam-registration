@@ -129,9 +129,48 @@ export default function RegistrantActions({
 
     async function resendEmail() {
 
-        toast.info(
-            "Coming soon."
-        );
+        setLoading(true);
+
+        try {
+
+            const response = await fetch("/api/resend-email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: registrant.id,
+                }),
+            });
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ??
+                    "Unable to resend email."
+                );
+            }
+
+            toast.success(
+                "Confirmation email sent."
+            );
+
+        }
+        catch (error: any) {
+
+            toast.error(
+                error.message ??
+                "Unable to resend email."
+            );
+
+        }
+        finally {
+
+            setLoading(false);
+
+        }
 
     }
 
@@ -228,7 +267,9 @@ export default function RegistrantActions({
 
                     )}
 
+
                     <DropdownMenuItem
+                        disabled={loading}
                         onClick={resendEmail}
                         className="
         rounded-lg
@@ -242,12 +283,13 @@ export default function RegistrantActions({
         cursor-pointer
     "
                     >
-
                         <Mail className="mr-2 h-4 w-4" />
 
-                        Resend Email
-
+                        {loading
+                            ? "Sending..."
+                            : "Resend Email"}
                     </DropdownMenuItem>
+
 
                 </DropdownMenuContent>
 
