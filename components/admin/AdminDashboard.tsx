@@ -7,6 +7,7 @@ import DashboardCards from "./DashboardCards";
 import AdminToolbar from "./AdminToolbar";
 import { createClient } from "@/lib/supabase/client";
 import RegistrantsTable from "./RegistrantsTable";
+import LogoutButton from "../auth/LogoutButton";
 
 export default function AdminDashboard() {
     const [registrants, setRegistrants] = useState<any[]>([]);
@@ -69,123 +70,216 @@ export default function AdminDashboard() {
 
                 <div
                     className="
-    mb-6
-    overflow-hidden
-    rounded-2xl
-    bg-gradient-to-r
-    from-emerald-700
-    via-emerald-600
-    to-green-500
-    px-8
-    py-6
-    text-white
-    shadow-lg
+        relative
+        mb-8
+        overflow-hidden
+        rounded-3xl
+        bg-gradient-to-r
+        from-emerald-700
+        via-emerald-600
+        to-green-500
+        px-8
+        py-8
+        text-white
+        shadow-xl
     "
                 >
 
-                    <div
-                        className="
-        flex
-        flex-col
-        gap-5
-        md:flex-row
-        md:items-center
-        md:justify-between
-        "
-                    >
+                    {/* Background Decoration */}
 
-                        {/* Left */}
+                    <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+                    <div className="absolute -bottom-20 left-1/3 h-52 w-52 rounded-full bg-white/10 blur-3xl" />
 
-                        <div>
+                    <div className="relative z-10">
 
-                            <p
-                                className="
-                text-xs
-                font-semibold
-                uppercase
-                tracking-[0.25em]
-                text-emerald-100
-                "
-                            >
-                                Admin Dashboard
-                            </p>
-
-                            <h1
-                                className="
-                mt-2
-                text-3xl
-                font-bold
-                leading-tight
-                md:text-4xl
-                "
-                            >
-                                Youth With a Vision
-                                <span className="block text-emerald-100">
-                                    Praise Jam
-                                </span>
-                            </h1>
-
-                        </div>
-
-                        {/* Right */}
+                        {/* Top Row */}
 
                         <div
                             className="
-            flex
-            flex-wrap
-            gap-2
+                flex
+                flex-col
+                gap-6
+                lg:flex-row
+                lg:items-start
+                lg:justify-between
+            "
+                        >
+
+                            {/* Left */}
+
+                            <div>
+
+                                <span
+                                    className="
+                        inline-flex
+                        rounded-full
+                        bg-white/15
+                        px-4
+                        py-1
+                        text-xs
+                        font-semibold
+                        uppercase
+                        tracking-[0.2em]
+                        backdrop-blur
+                    "
+                                >
+                                    Admin Dashboard
+                                </span>
+
+                                <h1
+                                    className="
+                        mt-4
+                        text-4xl
+                        font-extrabold
+                        leading-tight
+                    "
+                                >
+                                    Welcome Back 👋
+                                </h1>
+
+                                <p
+                                    className="
+                        mt-2
+                        max-w-2xl
+                        text-emerald-50
+                        text-base
+                    "
+                                >
+                                    Manage registrations, monitor attendance, and keep track
+                                    of everyone joining the Youth With a Vision Praise Jam.
+                                </p>
+
+                            </div>
+
+                            {/* Right */}
+
+                            <div
+                                className="
+                    flex
+                    flex-col
+                    items-start
+                    gap-4
+                    lg:items-end
+                "
+                            >
+
+                                <div
+                                    className="
+                        flex
+                        items-center
+                        gap-2
+                        rounded-full
+                        bg-emerald-500/30
+                        px-4
+                        py-2
+                        backdrop-blur
+                    "
+                                >
+                                    <span className="h-2 w-2 rounded-full bg-green-300" />
+
+                                    <span className="text-sm font-medium">
+                                        System Online
+                                    </span>
+                                </div>
+
+                                <LogoutButton />
+
+                            </div>
+
+                        </div>
+
+                        {/* Event Information */}
+
+                        <div
+                            className="
+                mt-8
+                grid
+                gap-4
+                md:grid-cols-3
             "
                         >
 
                             <div
                                 className="
-                flex
-                items-center
-                gap-2
-                rounded-full
-                bg-white/15
-                px-3
-                py-2
-                text-sm
-                backdrop-blur
+                    rounded-2xl
+                    bg-white/15
+                    p-4
+                    backdrop-blur-md
+                    ring-1
+                    ring-white/20
                 "
                             >
-                                <CalendarDays size={16} />
-                                Friday
+
+                                <div className="mb-2 flex items-center gap-2 text-emerald-100">
+
+                                    <CalendarDays size={18} />
+
+                                    <span className="text-xs uppercase tracking-wider">
+                                        Event Date
+                                    </span>
+
+                                </div>
+
+                                <p className="text-lg font-semibold">
+                                    Friday
+                                </p>
+
                             </div>
 
                             <div
                                 className="
-                flex
-                items-center
-                gap-2
-                rounded-full
-                bg-white/15
-                px-3
-                py-2
-                text-sm
-                backdrop-blur
+                    rounded-2xl
+                    bg-white/15
+                    p-4
+                    backdrop-blur-md
+                    ring-1
+                    ring-white/20
                 "
                             >
-                                <Clock size={16} />
-                                6:00 PM
+
+                                <div className="mb-2 flex items-center gap-2 text-emerald-100">
+
+                                    <Clock size={18} />
+
+                                    <span className="text-xs uppercase tracking-wider">
+                                        Start Time
+                                    </span>
+
+                                </div>
+
+                                <p className="text-lg font-semibold">
+                                    6:00 PM
+                                </p>
+
                             </div>
 
                             <div
                                 className="
-                flex
-                items-center
-                gap-2
-                rounded-full
-                bg-white/15
-                px-3
-                py-2
-                text-sm
-                backdrop-blur
+                    rounded-2xl
+                    bg-white/15
+                    p-4
+                    backdrop-blur-md
+                    ring-1
+                    ring-white/20
                 "
                             >
-                                <MapPin size={16} />
-                                At the Back of Julies Bakeshop, Brgy. Galas Dipolog City
+
+                                <div className="mb-2 flex items-center gap-2 text-emerald-100">
+
+                                    <MapPin size={18} />
+
+                                    <span className="text-xs uppercase tracking-wider">
+                                        Venue
+                                    </span>
+
+                                </div>
+
+                                <p className="text-sm leading-relaxed">
+                                    At the Back of Julie's Bakeshop,
+                                    <br />
+                                    Brgy. Galas, Dipolog City
+                                </p>
+
                             </div>
 
                         </div>
