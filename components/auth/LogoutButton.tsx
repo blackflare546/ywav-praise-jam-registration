@@ -24,13 +24,16 @@ export default function LogoutButton() {
     return (
         <Button
             onClick={logout}
+            size="lg"
             className="
-                bg-red-500
-                text-white
-                hover:bg-red-600
-            "
+        bg-red-500
+        text-white
+        hover:bg-red-600
+        shadow-lg
+        font-semibold
+    "
         >
-            <LogOut className="mr-2 h-4 w-4" />
+            <LogOut className="mr-2 h-5 w-5" />
 
             Logout
         </Button>
