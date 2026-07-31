@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 const PROTECTED_ROUTES = ["/admin", "/scan"];
 
+// Toggle this whenever registration opens/closes
+const REGISTRATION_CLOSED = true;
+
 export async function updateSession(request: NextRequest) {
 	let response = NextResponse.next({
 		request,
@@ -40,11 +43,29 @@ export async function updateSession(request: NextRequest) {
 
 	const pathname = request.nextUrl.pathname;
 
+	/* -----------------------------
+	   Registration Closed
+	------------------------------ */
+
+	if (
+		REGISTRATION_CLOSED &&
+		(pathname === "/" || pathname.startsWith("/register"))
+	) {
+		const url = request.nextUrl.clone();
+
+		url.pathname = "/login";
+
+		return NextResponse.redirect(url);
+	}
+
+	/* -----------------------------
+	   Protected Pages
+	------------------------------ */
+
 	const isProtected = PROTECTED_ROUTES.some((route) =>
 		pathname.startsWith(route),
 	);
 
-	// Not logged in
 	if (isProtected && !user) {
 		const url = request.nextUrl.clone();
 
@@ -53,7 +74,10 @@ export async function updateSession(request: NextRequest) {
 		return NextResponse.redirect(url);
 	}
 
-	// Already logged in
+	/* -----------------------------
+	   Already Logged In
+	------------------------------ */
+
 	if (pathname === "/login" && user) {
 		const url = request.nextUrl.clone();
 
