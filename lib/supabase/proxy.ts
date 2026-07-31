@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_ROUTES: string[] = [];
+const PROTECTED_ROUTES = ["/admin", "/scan"];
 
 export async function updateSession(request: NextRequest) {
 	let response = NextResponse.next({
@@ -44,14 +44,22 @@ export async function updateSession(request: NextRequest) {
 		pathname.startsWith(route),
 	);
 
+	// Not logged in
 	if (isProtected && !user) {
-		const loginUrl = request.nextUrl.clone();
+		const url = request.nextUrl.clone();
 
-		loginUrl.pathname = "/auth/login";
+		url.pathname = "/login";
 
-		loginUrl.searchParams.set("redirectTo", pathname);
+		return NextResponse.redirect(url);
+	}
 
-		return NextResponse.redirect(loginUrl);
+	// Already logged in
+	if (pathname === "/login" && user) {
+		const url = request.nextUrl.clone();
+
+		url.pathname = "/admin";
+
+		return NextResponse.redirect(url);
 	}
 
 	return response;
