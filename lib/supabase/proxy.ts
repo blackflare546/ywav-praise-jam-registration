@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const PROTECTED_ROUTES = ["/admin", "/scan"];
 
 // Toggle this whenever registration opens/closes
-const REGISTRATION_CLOSED = true;
+const REGISTRATION_CLOSED = false;
 
 export async function updateSession(request: NextRequest) {
 	let response = NextResponse.next({

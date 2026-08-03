@@ -15,14 +15,20 @@ const QRCodeCard = forwardRef<HTMLDivElement, Props>(
             <div
                 ref={ref}
                 id="qr-card"
-                className="bg-white rounded-xl p-6 inline-block"
+                className="
+        inline-block
+        rounded-2xl
+        border
+        border-gray-200
+        bg-white
+        p-5
+        shadow-lg
+    "
             >
-
                 <QRCode
                     value={value}
-                    size={250}
+                    size={220}
                 />
-
             </div>
 
         );
