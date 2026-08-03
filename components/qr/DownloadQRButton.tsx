@@ -26,13 +26,17 @@ export default function DownloadQRButton({
         const img = new Image();
 
         img.onload = () => {
-            const canvas = document.createElement("canvas");
+            const qrSize = 220;
 
-            // Increase resolution for a sharper PNG
             const scale = 4;
 
-            canvas.width = 220 * scale;
-            canvas.height = 220 * scale;
+            // White border around the QR (quiet zone)
+            const padding = 12;
+
+            const canvas = document.createElement("canvas");
+
+            canvas.width = (qrSize + padding * 2) * scale;
+            canvas.height = (qrSize + padding * 2) * scale;
 
             const ctx = canvas.getContext("2d");
 
@@ -42,7 +46,14 @@ export default function DownloadQRButton({
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            // Draw QR with padding
+            ctx.drawImage(
+                img,
+                padding * scale,
+                padding * scale,
+                qrSize * scale,
+                qrSize * scale
+            );
 
             const pngUrl = canvas.toDataURL("image/png");
 
@@ -60,11 +71,24 @@ export default function DownloadQRButton({
     };
 
     return (
-        <Button
-            onClick={downloadQR}
-            className="w-full"
-        >
-            Download QR Code
-        </Button>
+        <div className="flex justify-center">
+
+            <Button
+                onClick={downloadQR}
+                className="
+                rounded-xl
+                bg-emerald-600
+                px-8
+                py-6
+                text-white
+                font-semibold
+                hover:bg-emerald-700
+                shadow-lg
+            "
+            >
+                Download QR Code
+            </Button>
+
+        </div>
     );
 }

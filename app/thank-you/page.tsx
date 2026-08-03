@@ -7,6 +7,9 @@ import {
 } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 
+import QRCodeCard from "@/components/qr/QRCodeCard";
+import DownloadQRButton from "@/components/qr/DownloadQRButton";
+
 interface Props {
     searchParams: Promise<{
         qr?: string;
@@ -122,6 +125,57 @@ export default async function ThankYouPage({
                                     {ministry}
                                 </span>
                             ))}
+                        </div>
+
+                    </div>
+
+                    {/* QR Code */}
+
+                    <div
+                        className="
+    rounded-2xl
+    border
+    border-emerald-200
+    bg-emerald-50
+    p-6
+    text-center
+    "
+                    >
+
+                        <h3
+                            className="
+        text-xl
+        font-bold
+        text-emerald-700
+        "
+                        >
+                            Your Event QR Code
+                        </h3>
+
+                        <p
+                            className="
+        mt-2
+        text-sm
+        text-emerald-700
+        "
+                        >
+                            Present this QR Code during event check-in.
+                        </p>
+
+                        <div className="mt-6 flex justify-center">
+
+                            <QRCodeCard
+                                value={data.qr_code}
+                            />
+
+                        </div>
+
+                        <div className="mt-6">
+
+                            <DownloadQRButton
+                                filename={`${data.name}-YouthPraiseJam`}
+                            />
+
                         </div>
 
                     </div>
