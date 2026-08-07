@@ -30,6 +30,9 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import { Eye } from "lucide-react";
+import RegistrantDetailsDialog from "./RegistrantDetailsDialog";
+
 import { Button } from "@/components/ui/button";
 
 interface Props {
@@ -267,6 +270,23 @@ export default function RegistrantActions({
 
                     )}
 
+                    <RegistrantDetailsDialog registrant={registrant}>
+                        <DropdownMenuItem
+                            onSelect={(e) => e.preventDefault()}
+                            className="
+            rounded-lg
+            px-3
+            py-2
+            text-gray-700
+            hover:bg-emerald-50
+            hover:text-emerald-700
+            cursor-pointer
+        "
+                        >
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                        </DropdownMenuItem>
+                    </RegistrantDetailsDialog>
 
                     <DropdownMenuItem
                         disabled={loading}
