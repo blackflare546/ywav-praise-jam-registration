@@ -34,10 +34,10 @@ export default function RegistrantDetailsDialog({
                 {children}
             </DialogTrigger>
 
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="bg-white p-10">
 
                 <DialogHeader>
-                    <DialogTitle className="text-2xl">
+                    <DialogTitle className="text-2xl text-emerald-600">
                         Participant Details
                     </DialogTitle>
                 </DialogHeader>
@@ -50,7 +50,7 @@ export default function RegistrantDetailsDialog({
 
                         <div className="flex items-center gap-3">
 
-                            <div className="rounded-full bg-emerald-600 p-3 text-white">
+                            <div className="rounded-full bg-emerald-300 p-3 text-white">
                                 <User size={22} />
                             </div>
 
