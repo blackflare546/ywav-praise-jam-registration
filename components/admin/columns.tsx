@@ -94,58 +94,6 @@ export const columns: ColumnDef<Registrant>[] = [
     },
 
     {
-        accessorKey: "age",
-
-        header: ({ column }) => (
-            <SortHeader
-                column={column}
-                title="Age"
-            />
-        ),
-    },
-
-    {
-        accessorKey: "birthday",
-
-        header: ({ column }) => (
-            <SortHeader
-                column={column}
-                title="Birthday"
-            />
-        ),
-
-        sortingFn: "datetime",
-
-        cell: ({ row }) =>
-            new Date(
-                row.original.birthday
-            ).toLocaleDateString(),
-    },
-
-    {
-        accessorKey: "cell_number",
-
-        header: "Cell Number",
-    },
-
-    {
-        accessorKey: "address",
-
-        header: "Address",
-
-        cell: ({ row }) => (
-            <div
-                className="
-                max-w-[220px]
-                truncate
-            "
-                title={row.original.address}
-            >
-                {row.original.address}
-            </div>
-        ),
-    },
-    {
         accessorKey: "ministries",
 
         header: "Ministries",
